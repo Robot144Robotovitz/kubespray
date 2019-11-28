@@ -57,16 +57,16 @@ etcd_version: v3.3.10
 
 # gcr and kubernetes image repo define
 #gcr_image_repo: "gcr.io"
-gcr_image_repo: "ecsa00400b48.epam.com:9990/gcr.io" 
+gcr_image_repo: "{{ local_base_image_repo }}"
 kube_image_repo: "{{ gcr_image_repo }}/google-containers"
 
 # docker image repo define
 #docker_image_repo: "docker.io"
-docker_image_repo: "ecsa00400b48.epam.com:9990"
+docker_image_repo: "{{ local_base_image_repo }}"
 
 # quay image repo define
 #quay_image_repo: "quay.io"
-quay_image_repo: "ecsa00400b48.epam.com:9990/quay.io"
+quay_image_repo: "{{ local_base_image_repo }}"
 
 # TODO(mattymo): Move calico versions to roles/network_plugins/calico/defaults
 # after migration to container download
