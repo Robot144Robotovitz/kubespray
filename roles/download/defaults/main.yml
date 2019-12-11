@@ -4,18 +4,18 @@ download_cache_dir: /tmp/kubespray_cache
 
 # do not delete remote cache files after using them
 # NOTE: Setting this parameter to TRUE is only really useful when developing kubespray
-download_keep_remote_cache: false
+download_keep_remote_cache: true
 
 # Only useful when download_run_once is false: Localy cached files and images are
 # uploaded to kubernetes nodes. Also, images downloaded on those nodes are copied
 # back to the ansible runner's cache, if they are not yet preset.
-download_force_cache: false
+download_force_cache: true
 
 # Used to only evaluate vars from download role
-skip_downloads: false
+skip_downloads: true
 
 # Optionally skip kubeadm images download
-skip_kubeadm_images: false
+skip_kubeadm_images: true
 kubeadm_images: {}
 
 # if this is set to true will only download files once. Doesn't work
@@ -32,7 +32,7 @@ download_container: True
 # local caching of docker images or for Container Linux by CoreOS cluster nodes.
 # Otherwise, uses the first node in the kube-master group to store images
 # in the download_run_once mode.
-download_localhost: False
+download_localhost: true
 
 # Always pull images if set to True. Otherwise check by the repo's tag/digest.
 download_always_pull: False
@@ -51,22 +51,19 @@ image_arch: "{{host_architecture | default('amd64')}}"
 # Versions
 kube_version: v1.16.2
 kubeadm_version: "{{ kube_version }}"
-etcd_version: v3.3.10
+etcd_version: 3.2.24
 
 #  http://ecsa00400b48.epam.com:9990
 
 # gcr and kubernetes image repo define
-#gcr_image_repo: "gcr.io"
-gcr_image_repo: "{{ local_base_image_repo }}"
+gcr_image_repo: "gcr.io"
 kube_image_repo: "{{ gcr_image_repo }}/google-containers"
 
 # docker image repo define
-#docker_image_repo: "docker.io"
-docker_image_repo: "{{ local_base_image_repo }}"
+docker_image_repo: "docker.io"
 
 # quay image repo define
-#quay_image_repo: "quay.io"
-quay_image_repo: "{{ local_base_image_repo }}"
+quay_image_repo: "quay.io"
 
 # TODO(mattymo): Move calico versions to roles/network_plugins/calico/defaults
 # after migration to container download
@@ -226,7 +223,7 @@ crictl_binary_checksum: "{{ crictl_checksums[image_arch][crictl_version] }}"
 # You need to deploy kubernetes cluster on local private development.
 # Also provide the address of your own private registry.
 # And use --insecure-registry options for docker
-etcd_image_repo: "{{ quay_image_repo }}/coreos/etcd"
+etcd_image_repo: "k8s.gcr.io/etcd"
 etcd_image_tag: "{{ etcd_version }}{%- if image_arch != 'amd64' -%}-{{ image_arch }}{%- endif -%}"
 flannel_image_repo: "{{ quay_image_repo }}/coreos/flannel"
 flannel_image_tag: "{{ flannel_version }}"
@@ -832,11 +829,11 @@ downloads:
       - kube-master
 
 download_defaults:
-  container: false
+  container: true
   file: false
   repo: None
   tag: None
-  enabled: false
+  enabled: true
   dest: None
   version: None
   url: None

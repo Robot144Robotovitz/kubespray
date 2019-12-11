@@ -49,11 +49,10 @@
       when:
         - download_force_cache
         - image_is_cached
-        - not download_localhost
         - ansible_os_family not in ["CoreOS", "Container Linux by CoreOS"]
 
     - name: download_container | Load image into docker
-      shell: "{{ docker_bin_dir }}/docker load < {{ image_path_cached if download_localhost else image_path_final }}"
+      shell: "{{ docker_bin_dir }}/docker load < {{ image_path_final }}"
       delegate_to: "{{ download_delegate if download_run_once else inventory_hostname }}"
       run_once: "{{ download_run_once }}"
       register: container_load_status
@@ -86,7 +85,7 @@
       retries: 4
       become: "{{ user_can_become_root | default(false) or not download_localhost }}"
       when:
-        - pull_required | default(download_always_pull)
+        - false | default(download_always_pull)
 
     # NOTE: image_changed is only valid if a pull is was needed or forced.
     - name: download_container | Check if image changed

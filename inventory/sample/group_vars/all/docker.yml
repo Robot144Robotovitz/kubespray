@@ -35,8 +35,8 @@ local_base_image_repo: "ecsa00400927.epam.com:9990"
 ## An obvious use case is allowing insecure-registry access to self hosted registries.
 ## Can be ipaddress and domain_name.
 ## example define 172.19.16.11 or mirror.registry.io
-docker_insecure_registries:
-    - "{{ local_base_image_repo }}"
+# docker_insecure_registries:
+    # - "{{ local_base_image_repo }}"
 #   - mirror.registry.io
 #   - 172.19.16.11
 
