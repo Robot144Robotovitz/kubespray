@@ -70,7 +70,7 @@
         - not download_always_pull
 
     - debug:
-        msg: "XXX Pull required is: {{ pull_required }}"
+        msg: "XXX Pull required is: {{ pull_required }}, download_delegate is {{ download_delegate }}, inventory_hostname is {{ inventory_hostname }} "
 
     # NOTE: Pre-loading docker images will not prevent 'docker pull' from re-downloading the layers in that image
     # if a pull is forced. This is a known issue with docker. See https://github.com/moby/moby/issues/23684
@@ -98,7 +98,7 @@
         - facts
 
     - name: download_container | Save and compress image
-      shell: "{{ docker_bin_dir }}/docker save {{ image_reponame }} | gzip -{{ download_compress }} > {{ image_path_cached if download_localhost else image_path_final }}"
+      shell: "{{ docker_bin_dir }}/docker save {{ image_reponame }} | gzip -{{ download_compress }} > {{ image_path_final }}"
       delegate_to: "{{ download_delegate if download_run_once else inventory_hostname }}"
       delegate_facts: no
       register: container_save_status

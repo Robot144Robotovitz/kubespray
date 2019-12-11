@@ -21,7 +21,7 @@ kubeadm_images: {}
 # if this is set to true will only download files once. Doesn't work
 # on Container Linux by CoreOS unless the download_localhost is true and localhost
 # is running another OS type. Default compress level is 1 (fastest).
-download_run_once: False
+download_run_once: True
 download_compress: 1
 
 # if this is set to true will download container
@@ -33,6 +33,7 @@ download_container: True
 # Otherwise, uses the first node in the kube-master group to store images
 # in the download_run_once mode.
 download_localhost: true
+
 
 # Always pull images if set to True. Otherwise check by the repo's tag/digest.
 download_always_pull: False
@@ -57,6 +58,7 @@ etcd_version: 3.2.24
 
 # gcr and kubernetes image repo define
 gcr_image_repo: "gcr.io"
+# gcr_image_repo: "{{ local_base_image_repo }}/gcr.io"
 kube_image_repo: "{{ gcr_image_repo }}/google-containers"
 
 # docker image repo define
@@ -64,6 +66,8 @@ docker_image_repo: "docker.io"
 
 # quay image repo define
 quay_image_repo: "quay.io"
+#quay_image_repo: "{{ local_base_image_repo }}/quay.io"
+
 
 # TODO(mattymo): Move calico versions to roles/network_plugins/calico/defaults
 # after migration to container download
